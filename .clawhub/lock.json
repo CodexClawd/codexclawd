@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "skills": {
+    "gog": {
+      "version": "1.0.0",
+      "installedAt": 1770308414314
+    },
+    "sendclaw-email": {
+      "version": "1.0.1",
+      "installedAt": 1770311611000
+    },
+    "sonoscli": {
+      "version": "1.0.0",
+      "installedAt": 1770350302122
+    },
+    "agentskills-io": {
+      "version": "2.5.0",
+      "installedAt": 1770350362234
+    }
+  }
+}

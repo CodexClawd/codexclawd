@@ -1,0 +1,22 @@
+{
+  "ollama": {
+    "baseUrl": "http://localhost:11434/v1",
+    "api": "openai-completions",
+    "models": [
+      {
+        "id": "codellama",
+        "alias": "codellama",
+        "name": "CodeLlama (Local)",
+        "contextWindow": 16384,
+        "cost": {"input": 0, "output": 0}
+      },
+      {
+        "id": "llama3.2",
+        "alias": "llama3",
+        "name": "Llama 3.2 (Local)",
+        "contextWindow": 128000,
+        "cost": {"input": 0, "output": 0}
+      }
+    ]
+  }
+}

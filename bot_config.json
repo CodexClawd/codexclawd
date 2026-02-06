@@ -1,0 +1,11 @@
+{
+  "pinger_bot": {
+    "token": "8254596590:AAGTd9-fEQeGjQeLOSRUdaFyiPgtoqMSG1c",
+    "username": "@brutusclawdbot",
+    "chat_id": "7359674814"
+  },
+  "main_bot": {
+    "token": "8427215637:AAHhKEnkF1vU6Eiir57UwEAP9sRTgU_lcyQ",
+    "chat_id": "7359674814"
+  }
+}
