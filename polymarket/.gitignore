@@ -1,0 +1,4 @@
+binance-config.json
+.env
+*.key
+*.secret
