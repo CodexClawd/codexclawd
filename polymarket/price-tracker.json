@@ -1,0 +1,29 @@
+{
+  "lastUpdated": null,
+  "markets": {
+    "US Strikes Iran by Feb 9, 2026": {
+      "url": "https://polymarket.com/event/us-strikes-iran-by/us-strikes-iran-by-february-9-2026-113-751",
+      "currentPrice": null,
+      "previousPrice": null,
+      "lastChange": null,
+      "positions": {
+        "contracts": 149,
+        "avgBuyPrice": 0.08,
+        "totalCost": 11.99
+      }
+    },
+    "US Strikes Iran by Feb 28, 2026": {
+      "url": "https://polymarket.com/event/us-strikes-iran-by/us-strikes-iran-by-february-28-2026-227-967-547-688-589-491-592-418-452-924-384-915-464-672-196-157-993-596-269-535",
+      "currentPrice": null,
+      "previousPrice": null,
+      "lastChange": null,
+      "positions": {
+        "contracts": 37,
+        "avgBuyPrice": 0.27,
+        "totalCost": 9.99
+      }
+    }
+  },
+  "alertThreshold": 0.05,
+  "history": []
+}

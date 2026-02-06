@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-02-06T12:24:39.112Z",
+  "wallet": "0x1F1372A4e2EE58EEb3b0fffc6D9E4C595b3284e7",
+  "marketsCount": 0,
+  "tradesCount": 0,
+  "ordersCount": 0,
+  "hasPositions": false,
+  "errors": [
+    "tradesError",
+    "ordersError"
+  ]
+}

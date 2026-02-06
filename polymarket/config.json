@@ -1,0 +1,9 @@
+{
+  "host": "https://clob.polymarket.com",
+  "chainId": 137,
+  "signatureType": 1,
+  "funder": "0x1F1372A4e2EE58EEb3b0fffc6D9E4C595b3284e7",
+  "apiKey": "d5f47e01-af6e-b404-9b34-4d378fe400bc",
+  "secret": "do4HAikw9qBjZ4ffGc9JOPj4kQoaOOVw0_jQ-4kBJjE=",
+  "passphrase": "255154eb5016b62aa131a2412d0b1de8fde3f1198f10ea9bad857502e8608c92"
+}
