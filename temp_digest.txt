@@ -1,0 +1,42 @@
+DIGEST Hourly Update — 2026-02-13 (Friday)
+Delivered: 06:05 UTC | 07:05 CET
+
+HEUTE (Today)
+- No important appointments or reminders.
+
+SYSTEM STATUS (Mesh & API)
+- Mesh Health: DEGRADED (3/4 nodes online)
+  - Clawd (10.0.0.2): ✅ HEALTHY (Ollama API OK, v0.15.5)
+  - Brutus (10.0.0.3): ✅ HEALTHY (Ollama API OK, v0.15.6)
+  - Nexus (10.0.0.1): ⚠️ WARNING (ping OK, Ollama API down)
+  - Plutos (10.0.0.4): ❌ CRITICAL (ping + Ollama unreachable)
+- Ollama Services: 2/4 available (Clawd, Brutus)
+
+API SPEND (OpenRouter — Today so far, up to 04:55 UTC)
+- Total Spend: $5.43 (303 requests)
+- Avg Cost per Request: $0.018
+- Tokens Processed: 16.0M (prompt: 15.9M, completion: 57.7K, reasoning: 24.3K)
+- Cost per 1K tokens: $0.0003
+- Top Providers: Novita ($1.41) → Moonshot AI ($0.98) → DeepInfra ($0.91)
+- Primary Model: moonshotai/kimi-k2.5-0127 (100% of spend)
+
+ALERTS (Last Hour)
+- 2x CRITICAL: Plutos node failure (mesh network)
+  - Detected: 05:30, 06:00 UTC
+  - Impact: 32GB inference capacity offline, redundancy lost
+  - Recommendation: Check Servitro/IONOS dashboard, restart WireGuard/Ollama
+- 1x CRITICAL: Network mesh integrity compromised (Plutos isolation)
+
+RECOMMENDATIONS
+1. Immediate: Investigate Plutos VPS status (Servitro-001, IP 87.106.3.190)
+2. Short‑term: Monitor Nexus Ollama API (separate from mesh issue)
+3. API Costs: Track Kimi‑k2.5 usage — $0.0003 per 1K tokens (efficient)
+
+TOP 3 FOR NEXT HOUR
+1. Resolve Plutos node failure (restore 32GB inference)
+2. Monitor Ollama API recovery on Nexus
+3. Keep an eye on OpenRouter spend trajectory
+
+---
+
+_Source: Digest Agent (compiled from Sentinel mesh check + OpenRouter CSV)_

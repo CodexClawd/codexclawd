@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-02-12T13:01:22Z",
+  "overall_status": "DEGRADED",
+  "nodes": {
+    "10.0.0.1": {
+      "name": "Nexus/Hub",
+      "status": "ONLINE",
+      "latency_ms": 24.6,
+      "packet_loss_percent": 0,
+      "ollama_available": false,
+      "ollama_models": []
+    },
+    "10.0.0.2": {
+      "name": "Clawd/Gateway",
+      "status": "ONLINE",
+      "latency_ms": 0.05,
+      "packet_loss_percent": 0,
+      "ollama_available": false,
+      "ollama_models": []
+    },
+    "10.0.0.3": {
+      "name": "Brutus/Coding",
+      "status": "ONLINE",
+      "latency_ms": 35.7,
+      "packet_loss_percent": 0,
+      "ollama_available": true,
+      "ollama_models": ["nemotron-mini:4b", "qwen2.5-coder:3b"]
+    },
+    "10.0.0.4": {
+      "name": "Plutos/Inference",
+      "status": "OFFLINE",
+      "latency_ms": null,
+      "packet_loss_percent": 100,
+      "ollama_available": false,
+      "ollama_models": []
+    }
+  },
+  "online_count": 3,
+  "total_count": 4,
+  "ollama_enabled_count": 1
+}

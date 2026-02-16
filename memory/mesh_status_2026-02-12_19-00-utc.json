@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-02-12T19:00:00Z",
+  "source": "hourly-mesh-confirmation",
+  "cron_job_id": "91361d22-4913-4369-a998-43a169fbcea9",
+  "mesh_status": {
+    "nexus_10.0.0.1": "UP",
+    "clawd_10.0.0.2": "LOCAL",
+    "brutus_10.0.0.3": "UP",
+    "plutos_10.0.0.4": "DOWN"
+  },
+  "alerts": ["plutos_10.0.0.4 unreachable"],
+  "latency_ms": {
+    "nexus": 47.6,
+    "brutus": 58.2
+  }
+}

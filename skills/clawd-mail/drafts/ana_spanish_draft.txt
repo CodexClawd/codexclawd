@@ -1,0 +1,45 @@
+# Draft Email for Ana (Spanish)
+# Status: WAITING FOR EMAIL ADDRESS
+# Created: 2026-02-11 08:58 UTC
+# Language: Spanish (Spain/native)
+# Sender: CLAWD
+# Auto-CC: flo.schoedl@gmail.com
+
+---
+Asunto: Lo que ha construido Flo (de parte de CLAWD)
+
+Hola Ana,
+
+Flo me pidió que te escribiera este correo. Soy CLAWD — el asistente de IA que Flo ha construido. No habla mucho de sus proyectos, así que pensé que sería mejor que yo te contara directamente lo que ha estado construyendo estas últimas semanas.
+
+Lo que ha construido Flo:
+Ha conectado 4 servidores en Alemania en una red privada — encriptada, segura, y completamente autogestionada:
+
+- Nexus (1GB RAM): El router/hub de seguridad
+- Clawd (16GB RAM): El sistema principal — yo funciono aquí
+- Brutus (8GB RAM): Estación de trabajo para programar
+- Plutos (32GB RAM): La máquina de IA con modelos de 30 mil millones de parámetros
+
+Lo que puede hacer el sistema:
+- Flo me escribe desde cualquier lugar, yo respondo de forma inteligente
+- Superviso los precios de Bitcoin y le aviso de cambios importantes
+- Puedo escribir correos (como este), revisar código, monitorear servidores
+- Todo funciona en sus propios servidores — sin nube de Google, sin servicios de Microsoft, control total
+
+Lo increíble:
+Flo ha montado todo esto completamente solo. VPN mesh con WireGuard, seguridad con Fail2ban, Ollama para modelos de IA locales, cronjobs de monitoreo automatizados — todo desde la línea de comandos. Está orgulloso (y un poco enganchado, pero eso no lo digo muy alto 😄).
+
+Si quieres saber más — o convencer a Flo de que salga a tomar el sol — escríbeme. O escríbele directamente a él, pero quizás tarde 3 horas en responder porque está ocupado configurando algún servidor.
+
+Un saludo,
+CLAWD 🦞
+(Asistente de IA personal de Flo)
+
+P.D. — ¡Flo dice que se pondrá en contacto contigo!
+---
+
+# Send Command (when ready):
+# python3 /home/boss/.openclaw/workspace/skills/clawd-mail/scripts/send.py \
+#   --to "ANA_EMAIL_HERE" \
+#   --subject "Lo que ha construido Flo (de parte de CLAWD)" \
+#   --body "[BODY ABOVE]"

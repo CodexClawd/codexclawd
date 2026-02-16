@@ -1,6 +1,6 @@
 # MEMORY.md — Flo (Boss)
 
-**Last Updated:** 2026-02-06  
+**Last Updated:** 2026-02-08  
 **Version:** 1.0 — Initial System Generation
 
 ---
@@ -307,8 +307,67 @@
 
 ---
 
+## Infrastructure
+
+**Current Setup (as of 2026-02-08):**
+
+### ION-001 — clawd-16gb (Primary VPS - IONOS)
+- **Provider:** IONOS
+- **Location:** Germany
+- **IP:** 85.215.46.147
+- **Hostname:** clawd-16gb
+- **CPU:** AMD EPYC-Milan, 8 vCPUs (4c/8t)
+- **RAM:** 16 GB DDR4 (14 GB free)
+- **Storage:** 480 GB NVMe SSD (434 GB free)
+- **OS:** Ubuntu 24.04 LTS
+- **Stack:** OpenClaw 2026.2.6-3, Ollama v0.15.5, Docker v28.2.2, Node v22.22.0
+- **Models:** llama3.1 (4.9GB), codellama (3.8GB)
+- **Role:** OpenClaw Gateway, Telegram Bot, Binance/GitHub integrations
+- **Prompt Color:** Pink (boss@clawd-16gb)
+
+### ION-002 — brutus-8gb (Coding VPS - IONOS)
+- **Provider:** IONOS
+- **Location:** Germany
+- **IP:** 87.106.6.144
+- **Hostname:** brutus-8gb
+- **CPU:** AMD EPYC-Milan, 6 vCPUs (3c/6t)
+- **RAM:** 8 GB DDR4 (7 GB free)
+- **Storage:** 232 GB SSD (221 GB free)
+- **OS:** Ubuntu 24.04 LTS
+- **Stack:** Ollama v0.15.5, code:llama (qwen2.5-coder:3b)
+- **Role:** Coding agent (code:llama), Ollama inference server
+- **Prompt Color:** Yellow (boss@brutus-8gb)
+
+### Private_PC — Mac Mini M1 (Control Center)
+- **Device:** Mac Mini M1
+- **CPU:** Apple Silicon M1 (8-core)
+- **RAM:** 8 GB Unified Memory
+- **Storage:** 512 GB SSD local + 2 TB Google Cloud + 2 TB iCloud
+- **OS:** macOS
+- **Role:** Brain/terminal, SSH management, VS Code remote dev
+
+### Servitro-001 (Security Bastion)
+- **Provider:** Servitro.com
+- **Location:** Frankfurt, Germany
+- **Cost:** $12/year ($1/month)
+- **CPU:** AMD EPYC 7443P, 1 vCore
+- **RAM:** 1 GB DDR4
+- **Storage:** 10 GB SSD
+- **Network:** 1 Gbps, 1TB traffic, IPv4 + IPv6/64
+- **Status:** Fresh purchase (pending hardening)
+- **Role:** WireGuard hub, reverse proxy, jump host, security perimeter
+
+---
+**Total Capacity:** 24 vCPUs | 33 GB RAM | 1.2 TB Storage | ~$25-30/month
+
+**Planned Architecture:**
+- clawd-16gb: Heavy inference (14B models), OpenClaw, main APIs
+- brutus-8gb: Trading bots, VPN proxy, 7B models, isolated services
+- Future: WireGuard VPN between them, API gateway pattern
+
 ## Notes
 
 **Created During:** OpenClaw Initialization Sequence  
 **Status:** Active development  
+**Last Updated:** 2026-02-08
 **Next Review:** After job situation stabilizes

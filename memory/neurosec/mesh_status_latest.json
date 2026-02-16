@@ -1,0 +1,40 @@
+{
+  "timestamp_utc": "2026-02-16T07:30:00Z",
+  "mesh_check": {
+    "nexus": {
+      "ip": "10.0.0.1",
+      "ping_ms_avg": 13.968,
+      "status": "up",
+      "ollama_check": "skipped (security hub)"
+    },
+    "clawd": {
+      "ip": "10.0.0.2",
+      "ping_ms_avg": 0.041,
+      "status": "up",
+      "ollama": {
+        "status": "up",
+        "models": ["mistral:7b-instruct-v0.3-q4_K_M"]
+      }
+    },
+    "brutus": {
+      "ip": "10.0.0.3",
+      "ping_ms_avg": 24.594,
+      "status": "up",
+      "ollama": {
+        "status": "up",
+        "models": ["qwen2.5-coder:3b"]
+      }
+    },
+    "plutos": {
+      "ip": "10.0.0.4",
+      "ping_ms_avg": 12.650,
+      "status": "up",
+      "ollama": {
+        "status": "up",
+        "models": ["llama3.1:8b-instruct-q4_K_M"]
+      }
+    }
+  },
+  "alerts": [],
+  "summary": "All mesh nodes reachable. Ollama API operational on all inference nodes (Clawd, Brutus, Plutos). No critical failures."
+}

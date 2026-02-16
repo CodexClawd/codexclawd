@@ -1,0 +1,46 @@
+#!/bin/bash
+# Clawd:Mail CLI wrapper
+
+SCRIPT_DIR="/home/boss/.openclaw/workspace/skills/clawd-mail/scripts"
+
+usage() {
+    echo "Clawd:Mail - Email dispatch system"
+    echo ""
+    echo "Usage:"
+    echo "  clawd-mail send <to> <subject> <body> [--html]"
+    echo "  clawd-mail status"
+    echo ""
+    echo "Examples:"
+    echo "  clawd-mail send boss@example.com \"Hello\" \"World\""
+    echo "  clawd-mail send boss@example.com \"Alert\" \"<h1>System OK</h1>\" --html"
+}
+
+case "$1" in
+    send)
+        shift
+        if [ $# -lt 3 ]; then
+            echo "❌ Usage: clawd-mail send <to> <subject> <body> [--html]"
+            exit 1
+        fi
+        TO="$1"
+        SUBJECT="$2"
+        BODY="$3"
+        HTML_FLAG=""
+        if [ "$4" = "--html" ]; then
+            HTML_FLAG="--html"
+        fi
+        python3 "$SCRIPT_DIR/send.py" --to "$TO" --subject "$SUBJECT" --body "$BODY" $HTML_FLAG
+        ;;
+    status)
+        if [ -f ~/.config/fastmail/creds ]; then
+            echo "✅ Clawd:Mail configured"
+            grep -o '^[^:]*' ~/.config/fastmail/creds | xargs echo "📧 Sender:"
+            ls -la ~/.config/fastmail/creds | awk '{print "🔒 Creds permissions:", $1}'
+        else
+            echo "❌ Not configured. Run setup."
+        fi
+        ;;
+    *)
+        usage
+        ;;
+esac

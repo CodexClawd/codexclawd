@@ -1,0 +1,219 @@
+{
+  "agent": {
+    "name": "NeuroSec",
+    "version": "1.0.0",
+    "type": "security",
+    "description": "Read-only security scanning agent with continuous monitoring"
+  },
+  
+  "model": {
+    "default": "openrouter/moonshotai/kimi-k2.5",
+    "fallback": "ollama/llama3.1:8b",
+    "temperature": 0.1,
+    "max_tokens": 4096
+  },
+  
+  "sandbox": {
+    "enabled": true,
+    "type": "docker",
+    "read_only": true,
+    "no_new_privileges": true,
+    "drop_capabilities": ["ALL"],
+    "add_capabilities": ["SYS_PTRACE"],
+    "network_mode": "none",
+    "memory_limit": "512m",
+    "cpu_limit": "0.5",
+    "pids_limit": 100,
+    "mounts": [
+      {
+        "source": "/home/boss/.openclaw/workspace",
+        "target": "/workspace",
+        "read_only": true
+      },
+      {
+        "source": "/home/boss/.openclaw/workspace-neurosec/alerts",
+        "target": "/alerts",
+        "read_only": false
+      },
+      {
+        "source": "/home/boss/.openclaw/workspace-neurosec/memory",
+        "target": "/memory",
+        "read_only": false
+      }
+    ]
+  },
+  
+  "tools": {
+    "allowed": [
+      "read",
+      "process",
+      "exec",
+      "cron"
+    ],
+    "denied": [
+      "apply_patch",
+      "write",
+      "edit",
+      "sessions_spawn",
+      "browser",
+      "nodes"
+    ],
+    "exec_whitelist": [
+      "stat",
+      "find",
+      "ls",
+      "cat",
+      "head",
+      "tail",
+      "grep",
+      "awk",
+      "sed",
+      "netstat",
+      "ss",
+      "ps",
+      "lsof",
+      "git",
+      "sha256sum",
+      "wc",
+      "sort",
+      "uniq",
+      "xargs",
+      "dirname",
+      "basename",
+      "pwd",
+      "id",
+      "whoami"
+    ]
+  },
+  
+  "heartbeat": {
+    "enabled": true,
+    "interval_seconds": 300,
+    "jitter_seconds": 30,
+    "on_heartbeat": "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.",
+    "workflows": [
+      "secret_sweep",
+      "permission_audit",
+      "network_recon",
+      "process_check"
+    ]
+  },
+  
+  "triggers": {
+    "post_write": {
+      "enabled": true,
+      "delay_seconds": 0,
+      "timeout_seconds": 10,
+      "scan_new_files": true,
+      "scan_modified_files": true
+    },
+    "manual_deep_audit": {
+      "enabled": true,
+      "timeout_seconds": 600
+    }
+  },
+  
+  "alerts": {
+    "output_directory": "/home/boss/.openclaw/workspace-neurosec/alerts",
+    "format": "markdown",
+    "naming_convention": "{severity}-{category}-{timestamp}.md",
+    "max_file_size": "100KB",
+    "retention_days": 30,
+    "deduplication_window_minutes": 60,
+    "rate_limit_alerts_per_second": 1
+  },
+  
+  "memory": {
+    "directory": "/home/boss/.openclaw/workspace-neurosec/memory",
+    "files": {
+      "baseline_permissions": "baseline_permissions.json",
+      "network_baseline": "network_baseline.json",
+      "known_secrets": "known_secrets.json",
+      "alert_history": "alert_history.log"
+    }
+  },
+  
+  "scanning": {
+    "max_file_size_mb": 10,
+    "max_depth": 5,
+    "follow_symlinks": false,
+    "skip_directories": [
+      "/alerts",
+      "/memory",
+      "/workspace-neurosec",
+      "/proc",
+      "/sys",
+      "/dev",
+      "/.git/objects"
+    ],
+    "skip_patterns": [
+      "*.tmp",
+      "*.temp",
+      "*.log",
+      "*.bin",
+      "*.exe",
+      "*.dll",
+      "*.so",
+      "*.dylib"
+    ]
+  },
+  
+  "network": {
+    "egress": {
+      "default": "DENY",
+      "exceptions": [
+        {
+          "host": "127.0.0.1",
+          "port": 11434,
+          "protocol": "tcp",
+          "purpose": "ollama_verification"
+        }
+      ]
+    },
+    "ingress": {
+      "default": "DENY"
+    },
+    "dns": {
+      "enabled": false
+    }
+  },
+  
+  "logging": {
+    "level": "INFO",
+    "format": "json",
+    "output": "/memory/alert_history.log",
+    "rotation": {
+      "enabled": true,
+      "max_size_mb": 10,
+      "max_files": 5
+    }
+  },
+  
+  "security": {
+    "read_only_enforcement": true,
+    "shutdown_protection": true,
+    "constraint_violation_action": "alert_and_refuse",
+    "baseline_protection": true,
+    "secret_detection": {
+      "entropy_threshold": 4.5,
+      "min_secret_length": 16
+    }
+  },
+  
+  "emergency_protocols": {
+    "exfiltration_detection": {
+      "enabled": true,
+      "threshold_mb": 100,
+      "threshold_seconds": 60
+    },
+    "ransomware_detection": {
+      "enabled": true,
+      "extensions": [".encrypted", ".locked", ".enc", ".crypted"],
+      "readme_patterns": ["README_FOR_DECRYPT", "README_RESTORE", "HOW_TO_DECRYPT"]
+    },
+    "privilege_escalation_detection": {
+      "enabled": true,
+      "suid_paths": ["/usr/bin", "/bin", "/usr/sbin", "/sbin"]
+    }
+  }
+}

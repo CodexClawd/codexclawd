@@ -1,0 +1,42 @@
+{
+  "facts": [
+    {
+      "id": 1,
+      "product": "Bausparvertrag (Schwäbisch Hall)",
+      "fact": "Bauspar combines saving + loan: First you save 30-50% of target amount, then get a guaranteed low-interest loan (currently ~2.5-3%) for the rest.",
+      "client_hook": \"Worried about rising mortgage rates? Lock in today's low rate for your future home.\",
+      "source": "framework"
+    },
+    {
+      "id": 2,
+      "product": "UniGlobal (Union Investment)",
+      "fact": "Germany's most popular funds savings plan—automatically invests small monthly amounts (€25+) into diversified global equities.",
+      "client_hook": \"Want to start investing but don't know where? Begin with €25/month and let the experts diversify for you.\",
+      "source": "framework"
+    },
+    {
+      "id": 3,
+      "product": "R+V Haftpflicht",
+      "fact": "Private liability insurance covers damages you cause to others—mandatory in Germany, often overlooked by young professionals.",
+      "client_hook": \"One moment of distraction, one expensive lawsuit. For €50/year, you're covered.\",
+      "source": "framework"
+    },
+    {
+      "id": 4,
+      "product": "DZ HYP Baufinanzierung",
+      "fact": "Construction financing with up to 100% loan-to-value, terms up to 35 years, often combined with Schwäbisch Hall Bauspar for optimal rates.",
+      "client_hook": \"Found your dream property? Let's see if we can finance it with a Bauspar-backed mortgage for lower rates.\",
+      "source": "framework"
+    },
+    {
+      "id": 5,
+      "product": "TeamBank Ratenkredit (easyCredit)",
+      "fact": "Unsecured consumer loan up to €75k, decision in minutes, fixed rates—useful for liquidity needs or debt consolidation.",
+      "client_hook": \"High-interest debts elsewhere? Let's consolidate into one lower-rate loan with clear payoff schedule.\",
+      "source": "framework",
+      "compliance_note": "Check suitability—ensure client can service debt"
+    }
+  ],
+  "last_updated": "2026-02-12",
+  "next_fact_id": 6
+}

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-02-11T10:00:00Z",
+  "source": "hourly-mesh-confirmation",
+  "mesh_status": {
+    "clawd": {"ip": "10.0.0.2", "status": "UP", "latency_ms": 0.045, "type": "self"},
+    "brutus": {"ip": "10.0.0.3", "status": "UP", "latency_ms": 41.9},
+    "plutos": {"ip": "10.0.0.4", "status": "UP", "latency_ms": 12.6}
+  },
+  "check_results": {
+    "ping_clawd": "PASS",
+    "ping_brutus": "PASS",
+    "ping_plutos": "PASS",
+    "wireguard_mesh": "HEALTHY"
+  },
+  "overall": "HEALTHY",
+  "delta_from_last": "NO_CHANGE"
+}
