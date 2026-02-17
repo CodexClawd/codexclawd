@@ -67,6 +67,10 @@ workspace-neurosec/
 /vps-audit/
 /repos/
 
+# Secrets / credentials
+telegram_backup.conf
+.env
+
 # Logs and temp
 logs/
 temp/

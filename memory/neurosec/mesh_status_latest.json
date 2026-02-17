@@ -1,40 +1,62 @@
 {
-  "timestamp_utc": "2026-02-16T07:30:00Z",
-  "mesh_check": {
-    "nexus": {
-      "ip": "10.0.0.1",
-      "ping_ms_avg": 13.968,
-      "status": "up",
-      "ollama_check": "skipped (security hub)"
-    },
-    "clawd": {
-      "ip": "10.0.0.2",
-      "ping_ms_avg": 0.041,
-      "status": "up",
-      "ollama": {
+  "timestamp": "2026-02-17T01:45:00Z",
+  "mesh_nodes": {
+    "10.0.0.1-nexus": {
+      "ping": {
         "status": "up",
-        "models": ["mistral:7b-instruct-v0.3-q4_K_M"]
+        "packet_loss": 0,
+        "avg_latency_ms": 13.875
+      },
+      "ollama_api": "skipped (security hub)"
+    },
+    "10.0.0.2-clawd": {
+      "ping": {
+        "status": "up",
+        "packet_loss": 0,
+        "avg_latency_ms": 0.038
+      },
+      "ollama_api": {
+        "status": "up",
+        "models": [
+          "mistral:7b-instruct-v0.3-q4_K_M"
+        ]
       }
     },
-    "brutus": {
-      "ip": "10.0.0.3",
-      "ping_ms_avg": 24.594,
-      "status": "up",
-      "ollama": {
+    "10.0.0.3-brutus": {
+      "ping": {
         "status": "up",
-        "models": ["qwen2.5-coder:3b"]
+        "packet_loss": 0,
+        "avg_latency_ms": 24.598
+      },
+      "ollama_api": {
+        "status": "up",
+        "models": [
+          "qwen2.5-coder:3b"
+        ]
       }
     },
-    "plutos": {
-      "ip": "10.0.0.4",
-      "ping_ms_avg": 12.650,
-      "status": "up",
-      "ollama": {
+    "10.0.0.4-plutos": {
+      "ping": {
         "status": "up",
-        "models": ["llama3.1:8b-instruct-q4_K_M"]
+        "packet_loss": 0,
+        "avg_latency_ms": 12.587
+      },
+      "ollama_api": {
+        "status": "up",
+        "models": [
+          "llama3.1:8b-instruct-q4_K_M",
+          "qwen3-coder:480b-cloud"
+        ]
       }
     }
   },
   "alerts": [],
-  "summary": "All mesh nodes reachable. Ollama API operational on all inference nodes (Clawd, Brutus, Plutos). No critical failures."
+  "summary": {
+    "total_nodes": 4,
+    "nodes_up": 4,
+    "nodes_down": 0,
+    "inference_nodes_checked": 3,
+    "inference_nodes_healthy": 3,
+    "critical_failures": 0
+  }
 }
