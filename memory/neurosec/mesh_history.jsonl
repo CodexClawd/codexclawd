@@ -1,0 +1,1 @@
+{"timestamp": "2026-02-17T02:00:18.689709Z", "nodes": {"Nexus": {"ip": "10.0.0.1", "role": "hub", "ping": "up"}, "Clawd": {"ip": "10.0.0.2", "role": "inference", "ping": "up", "ollama": "running"}, "Brutus": {"ip": "10.0.0.3", "role": "inference", "ping": "up", "ollama": "running"}, "Plutos": {"ip": "10.0.0.4", "role": "inference", "ping": "up", "ollama": "running"}}}

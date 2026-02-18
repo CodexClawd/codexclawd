@@ -30,7 +30,7 @@ MAX_ACTIONS = 8  # Top action items only
 MAX_TOPICS = 4  # Key topics only
 
 MEMORY_DIR = Path(os.path.expanduser("~/.openclaw/workspace/memory"))
-SESSION_LOG_DIR = Path(os.path.expanduser("~/.openclaw/logs/sessions"))
+SESSION_LOG_DIR = Path(os.path.expanduser("~/.openclaw/logs/sessions/runs"))
 
 
 @dataclass
