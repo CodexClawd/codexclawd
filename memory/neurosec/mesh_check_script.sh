@@ -1,103 +1,88 @@
 #!/bin/bash
-# Sentinel Mesh Health Check
-# Checks all mesh nodes and Ollama API on inference nodes
+# Sentinel mesh health check — 2026-02-18 07:30 UTC
 
-MESH_NODES=("10.0.0.1" "10.0.0.2" "10.0.0.3" "10.0.0.4")
-INFERENCE_NODES=("10.0.0.2" "10.0.0.3" "10.0.0.4")
-TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-JSON_FILE="memory/neurosec/mesh_status_latest.json"
-ALERT_DIR="memory/neurosec/alerts"
-mkdir -p "$ALERT_DIR"
+WIREGUARD_IPS="10.0.0.1 10.0.0.2 10.0.0.3 10.0.0.4"
+INFERENCE_NODES="10.0.0.2 10.0.0.3 10.0.0.4"
+OLLAMA_PORT=11434
+SNAPSHOT_FILE="memory/neurosec/mesh_status_latest.json"
+ALERT_DIR="alerts"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-# Initialize result structure
-declare -A results
-for node in "${MESH_NODES[@]}"; do
-    results["$node"]='{"ping":false,"ollama":null}'
-done
+declare -A ping_status
+declare -A ollama_status
+declare -A ip_of
 
-CRITICAL_ALERTS=()
+# Map friendly names to IPs
+ip_of[nexus]=10.0.0.1
+ip_of[clawd]=10.0.0.2
+ip_of[brutus]=10.0.0.3
+ip_of[plutos]=10.0.0.4
 
-# Phase 1: Ping all mesh nodes
-echo "Pinging mesh nodes..."
-for node in "${MESH_NODES[@]}"; do
-    if ping -c 3 -W 2 "$node" &>/dev/null; then
-        results["$node"]='{"ping":true,"ollama":null}'
-        echo "✓ $node reachable"
+# Perform checks
+for node in nexus clawd brutus plutos; do
+  ip="${ip_of[$node]}"
+  if ping -c 2 -W 1 "$ip" &>/dev/null; then
+    ping_status[$node]=ok
+  else
+    ping_status[$node]=fail
+  fi
+
+  if echo "$INFERENCE_NODES" | grep -qw "$ip"; then
+    if curl -s --max-time 2 "http://$ip:$OLLAMA_PORT/api/tags" | grep -q '"models"'; then
+      ollama_status[$node]=ok
     else
-        results["$node"]='{"ping":false,"ollama":null}'
-        echo "✗ $node unreachable"
-        # CRITICAL: Node down in mesh
-        CRITICAL_ALERTS+=("$node ping failed")
+      ollama_status[$node]=fail
     fi
+  else
+    ollama_status[$node]=skipped
+  fi
 done
 
-# Phase 2: Check Ollama API on inference nodes only
-echo "Checking Ollama API on inference nodes..."
-for node in "${INFERENCE_NODES[@]}"; do
-    if [[ ${results["$node"]} == *'"ping":true'* ]]; then
-        if curl -s --max-time 5 "http://$node:11434/api/tags" &>/dev/null; then
-            # Mark ollama as true
-            current='{"ping":true,"ollama":null}'
-            results["$node"]='{"ping":true,"ollama":true}'
-            echo "✓ $node:11434 Ollama responding"
-        else
-            results["$node"]='{"ping":true,"ollama":false}'
-            echo "✗ $node:11434 Ollama not responding"
-            # CRITICAL: Ollama down on inference node
-            CRITICAL_ALERTS+=("$node Ollama API failed")
-        fi
-    else
-        # Node unreachable, can't check Ollama
-        results["$node"]='{"ping":false,"ollama":null}'
-    fi
-done
-
-# Generate JSON output
-JSON="{
-  \"timestamp\": \"$TIMESTAMP\",
-  \"nodes\": {"
-FIRST=true
-for node in "${MESH_NODES[@]}"; do
-    if [ "$FIRST" = false ]; then
-        JSON="$JSON,"
-    fi
-    FIRST=false
-    JSON="$JSON\n    \"$node\": ${results["$node"]}"
-done
-JSON="$JSON\n  },\n  \"critical\": ${#CRITICAL_ALERTS[@]} > 0
-}"
-
-echo "$JSON" > "$JSON_FILE"
-echo "Log written to $JSON_FILE"
-
-# Handle CRITICAL alerts
-echo ""
-if [ ${#CRITICAL_ALERTS[@]} -gt 0 ]; then
-    echo "CRITICAL ALERTS:"
-    for alert in "${CRITICAL_ALERTS[@]}"; do
-        echo "  - $alert"
-    done
-    
-    # Create alert file
-    ALERT_FILE="$ALERT_DIR/CRITICAL-MESH-${TIMESTAMP//[:T-]/_}.md"
-    cat > "$ALERT_FILE" <<EOF
-# CRITICAL MESH ALERT
-
-**Timestamp:** $TIMESTAMP
-**Severity:** CRITICAL
-
-## Failures
-$(for a in "${CRITICAL_ALERTS[@]}"; do echo "- $a"; done)
-
-## Impact
-Mesh connectivity or inference capability compromised. Immediate investigation required.
-
-## Recommendation
-1. Verify node status and network routing
-2. Check WireGuard tunnel integrity
-3. Restart affected services (Ollama if applicable)
+# Build snapshot JSON
+cat > "$SNAPSHOT_FILE" <<EOF
+{
+  "timestamp": "$TIMESTAMP",
+  "mesh_nodes": {
+    "nexus": { "ip": "${ip_of[nexus]}", "ping": "${ping_status[nexus]}", "ollama": "${ollama_status[nexus]}" },
+    "clawd": { "ip": "${ip_of[clawd]}", "ping": "${ping_status[clawd]}", "ollama": "${ollama_status[clawd]}" },
+    "brutus": { "ip": "${ip_of[brutus]}", "ping": "${ping_status[brutus]}", "ollama": "${ollama_status[brutus]}" },
+    "plutos": { "ip": "${ip_of[plutos]}", "ping": "${ping_status[plutos]}", "ollama": "${ollama_status[plutos]}" }
+  }
+}
 EOF
-    echo "Alert saved to $ALERT_FILE"
-else
-    echo "No CRITICAL failures detected."
-fi
+
+# Critical alerts
+CRITICAL=0
+for node in nexus clawd brutus plutos; do
+  if [ "${ping_status[$node]}" = "fail" ]; then
+    CRITICAL=1
+    mkdir -p "$ALERT_DIR"
+    ALERT="$ALERT_DIR/CRITICAL-NETWORK-$node-${TIMESTAMP}.md"
+    cat > "$ALERT" <<EOM
+[CRITICAL] Mesh node unreachable: $node (IP: ${ip_of[$node]})
+IMPACT: Communication failure in mesh; node isolated.
+EVIDENCE: Ping timeout to ${ip_of[$node]} (2 packets, 1s timeout).
+LOCATION: ${ip_of[$node]}
+RECOMMENDATION: Check WG tunnel status, firewall, host availability. Isolate if persistent.
+CERTAINTY: High
+EOM
+  fi
+done
+
+for node in clawd brutus plutos; do
+  if [ "${ollama_status[$node]}" = "fail" ]; then
+    CRITICAL=1
+    mkdir -p "$ALERT_DIR"
+    ALERT="$ALERT_DIR/CRITICAL-OLLAMA-$node-${TIMESTAMP}.md"
+    cat > "$ALERT" <<EOM
+[CRITICAL] Inference node Ollama API down: $node (IP: ${ip_of[$node]})
+IMPACT: Inference service interrupted; dependent agents cannot run local models.
+EVIDENCE: HTTP 200 with valid JSON expected from http://${ip_of[$node]}:$OLLAMA_PORT/api/tags; got timeout/bad response.
+LOCATION: ${ip_of[$node]}
+RECOMMENDATION: Restart ollama service on the node. Check disk/memory pressure.
+CERTAINTY: High
+EOM
+  fi
+done
+
+exit $CRITICAL
