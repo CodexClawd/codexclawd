@@ -1,0 +1,23 @@
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                       
+LISTEN 0      5            0.0.0.0:44321      0.0.0.0:*                                                 
+LISTEN 0      4096   127.0.0.53%lo:53         0.0.0.0:*                                                 
+LISTEN 0      511        127.0.0.1:18789      0.0.0.0:*    users:(("openclaw-gatewa",pid=1069471,fd=23))
+LISTEN 0      511        127.0.0.1:18792      0.0.0.0:*    users:(("openclaw-gatewa",pid=1069471,fd=26))
+LISTEN 0      4096         0.0.0.0:22         0.0.0.0:*                                                 
+LISTEN 0      4096      127.0.0.54:53         0.0.0.0:*                                                 
+LISTEN 0      4096       127.0.0.1:631        0.0.0.0:*                                                 
+LISTEN 0      4096       127.0.0.1:8384       0.0.0.0:*    users:(("syncthing",pid=136376,fd=20))       
+LISTEN 0      4096       127.0.0.1:40633      0.0.0.0:*                                                 
+LISTEN 0      5            0.0.0.0:4330       0.0.0.0:*                                                 
+LISTEN 0      4096       127.0.0.1:46601      0.0.0.0:*                                                 
+LISTEN 0      4096       127.0.0.1:12345      0.0.0.0:*                                                 
+LISTEN 0      4096        10.0.0.2:22000      0.0.0.0:*    users:(("syncthing",pid=136376,fd=14))       
+LISTEN 0      4096               *:3000             *:*                                                 
+LISTEN 0      4096               *:11434            *:*                                                 
+LISTEN 0      5               [::]:44321         [::]:*                                                 
+LISTEN 0      4096            [::]:22            [::]:*                                                 
+LISTEN 0      4096               *:9100             *:*                                                 
+LISTEN 0      4096               *:9092             *:*                                                 
+LISTEN 0      511            [::1]:18789         [::]:*    users:(("openclaw-gatewa",pid=1069471,fd=24))
+LISTEN 0      5               [::]:4330          [::]:*                                                 
+LISTEN 0      4096           [::1]:631           [::]:*                                                 

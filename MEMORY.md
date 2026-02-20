@@ -279,37 +279,148 @@
 
 ---
 
-## What Brutus Should Remember
+## Project Plan v2 (Clawd/Brutus 16-Agent System)
 
-**Always:**
-- You have ADHD — structure doesn't stick, needs external scaffolding
-- Night owl schedule: 4pm+ is go-time, mornings are rough
-- 6 month runway — income pressure is real
-- Recovery is fragile — don't add pressure, add support
-- You procrastinate until panic — build systems that catch things earlier
-- Manu and Spencer fuel you — prioritize time with them
-- Self-care is hard — reminders should be gentle, not nagging
-- You restart systems from scratch constantly — design for 0-100, not maintenance
-- **Polymarket tracking:** You trade on Polymarket (US-Iran markets) — APIs don't work for 2026 futures, so I'll track manually when you report probabilities
+**Source:** PLAN_V2.pdf (2026-02-12)  
+**Deadline:** March 1, 2026 (BBBank onboarding) — 17 days total
 
-**Your Triggers:**
-- Corporate/banking talk (sensitive — career wound)
-- "Just try harder" (ADHD wound)
-- Pressure to socialize when you want alone time
+### 16-Agent Organization
 
-**Your Wins:**
-- Still here after burnout
-- Building something new
-- Asking for help (this system)
-- Trading on Polymarket = analytical mind still sharp
-- Deep geopolitics interest = big picture thinker
-- **Analytical skills:** Successfully trading geopolitics on Polymarket
+| Cluster | Agents | Purpose |
+|---------|--------|---------|
+| Finance | Macro, Alpha, Banker, Ledger | Banking support, market analysis, personal finance (BBBANK PRIORITY) |
+| Ops | Sentinel, Cloud, Compliance | Infrastructure monitoring, remote ops, regulatory |
+| Content | Scribe, Trendy, Atlas | Communications, scanning, deep research |
+| Life | Pitwall, Munich, Gambit, Mentor | Motorsport, local admin, chess, learning |
+| Security | NeuroSec | Security monitoring with baselines |
+| Meta | Digest | Morning briefing compiler |
+
+### Model Tiering
+
+- **Tier 1 (Reasoning-heavy):** openrouter/anthropic/claude-sonnet-4 or kimi-k2.5 — $3-15/1K tokens
+- **Tier 2 (Scanning):** openrouter/xiaomi/mimo-v2-flash or local Ollama 3B — $0.10-0.50/1K
+- **Tier 3 (Lightweight):** Local Ollama 3B — minimal cost
+
+### Current Status (2026-02-19)
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| WireGuard mesh | ✅ Done | All 4 nodes connected (clawd, brutus, plutos, nexus) |
+| SSH access | ✅ Done | ProxyJump config working; keys deployed on all nodes |
+| Ollama models | ✅ Done | clawd: mistral, brutus: qwen-coder, plutos: llama3.1 |
+| Telegram delivery | ✅ Working | Verified via chat |
+| NeuroSec baselines | ❌ Missing | Needs generation (permissions, network, secrets) |
+| Cron jobs | ❌ Broken | Mesh check + NewsClawd failing (need fix) |
+| BRUTUS orchestrator | ❌ Monolithic | Needs transformation to delegate to subagents |
+| Finance cluster | ❌ Not started | CRITICAL for March 1 BBBank deadline |
+| Other clusters | ❌ Not started | Ops, Content, Life, Security (beyond baselines), Meta |
+
+### Blockers & Dependencies
+
+1. **Telegram reliability gate** (48h consecutive success) — should be satisfied after cron fixes
+2. **Cron contention** — fixing mesh check and NewsClawd delivery
+3. **NeuroSec baselines** — needed for actual security monitoring (Phase 1)
+4. **Subagent architecture** — prerequisite for any cluster (Phase 2)
+5. **Finance cluster** — highest business value, accelerated due to March 1
+
+### Immediate Next Steps (Prioritized)
+
+1. **Fix cron jobs** (unblock Phase 0 gate)
+   - Repair `hourly-mesh-confirmation`
+   - Repair `hourly-newsclawd-update`
+2. **Generate NeuroSec baselines** (Phase 1)
+   - permissions.json, network.json, secrets.json scans
+3. **Implement subagent framework** (Phase 2 core)
+   - Create orchestrator prompt for BRUTUS (classify → delegate → relay)
+   - Define subagent configurations (systemPrompt, tools, memory)
+   - Test with simple `sessions_spawn` targets
+4. **Build Finance cluster** (critical path for March 1)
+   - Implement Macro, Alpha, Banker, Ledger agents
+   - Integrate OpenRouter for heavy reasoning
+   - Start with Banker onboarding mode (Day 1-3 tasks)
+5. **Implement Digest** (Meta) for morning briefing
+6. **Roll out remaining clusters** after Finance is functional
+
+### Open Questions
+
+- Are the existing cron jobs (`hourly-mesh-confirmation`, `hourly-newsclawd-update`) fixable quickly, or do we rebuild?
+- Should we use OpenRouter API for all Tier 1 agents immediately, or start with local Ollama fallback?
+- What is the exact status of NewsClawd skill? Is it functional after mesh fix?
+
+### Deadline Pressure
+
+March 1, 2026 = 17 days from project start. Finance cluster must be delivering value by then. All subagent infrastructure must be in place before Finance can operate.
+
+---
+
+## Tags
+
+plan, v2, agents, orchestration, finance, phases, deadline, bbbank, b2, 16-agents
 
 ---
 
 ## Infrastructure
 
-**Current Setup (as of 2026-02-08):**
+### WireGuard Mesh Network (Completed 2026-02-19)
+
+All nodes connected via 10.0.0.0/24 WireGuard mesh:
+
+| Node     | Role            | Public IP       | Mesh IP   | Access Method                    |
+|----------|-----------------|-----------------|-----------|----------------------------------|
+| clawd    | Entry Point     | 85.215.46.147   | 10.0.0.2  | Direct SSH from Mac              |
+| brutus   | Inference       | 87.106.6.144    | 10.0.0.3  | ProxyJump through clawd (mesh)   |
+| plutos   | Inference       | 87.106.3.190    | 10.0.0.4  | Direct SSH from Mac (Stratos)    |
+| nexus    | Security Bastion| (none)          | 10.0.0.1  | ProxyJump through clawd (mesh)   |
+
+**SSH Access from Mac** (`~/.ssh/config`):
+
+```
+Host clawd
+    HostName 85.215.46.147
+    User boss
+    IdentityFile ~/.ssh/id_ed25519
+    StrictHostKeyChecking accept-new
+
+Host nexus
+    HostName 10.0.0.1
+    User boss
+    ProxyJump clawd
+    IdentityFile ~/.ssh/id_ed25519
+    StrictHostKeyChecking accept-new
+
+Host brutus
+    HostName 10.0.0.3
+    User boss
+    ProxyJump clawd
+    IdentityFile ~/.ssh/id_ed25519
+    StrictHostKeyChecking accept-new
+
+Host plutos
+    HostName 87.106.3.190
+    User boss
+    IdentityFile ~/.ssh/id_ed25519
+    StrictHostKeyChecking accept-new
+```
+
+**Backup:** `~/.ssh/config.backup` contains the correct config. Restore with:
+```bash
+cp ~/.ssh/config.backup ~/.ssh/config
+```
+
+**Ollama Models:**
+- clawd: `mistral:7b-instruct-v0.3-q4_K_M`
+- brutus: `qwen2.5-coder:3b`
+- plutos: `llama3.1:8b-instruct-q4_K_M`
+
+**Mesh Verification:**
+```bash
+for node in clawd nexus brutus plutos; do
+  ssh -o ConnectTimeout=10 $node echo ok && echo "$node: ✓" || echo "$node: ✗"
+done
+```
+All nodes return ✓.
+
+---
 
 ### ION-001 — clawd-16gb (Primary VPS - IONOS)
 - **Provider:** IONOS
@@ -321,8 +432,7 @@
 - **Storage:** 480 GB NVMe SSD (434 GB free)
 - **OS:** Ubuntu 24.04 LTS
 - **Stack:** OpenClaw 2026.2.6-3, Ollama v0.15.5, Docker v28.2.2, Node v22.22.0
-- **Models:** llama3.1 (4.9GB), codellama (3.8GB)
-- **Role:** OpenClaw Gateway, Telegram Bot, Binance/GitHub integrations
+- **Role:** OpenClaw Gateway, Telegram Bot, Binance/GitHub integrations, mesh entry point
 - **Prompt Color:** Pink (boss@clawd-16gb)
 
 ### ION-002 — brutus-8gb (Coding VPS - IONOS)
@@ -334,40 +444,47 @@
 - **RAM:** 8 GB DDR4 (7 GB free)
 - **Storage:** 232 GB SSD (221 GB free)
 - **OS:** Ubuntu 24.04 LTS
-- **Stack:** Ollama v0.15.5, code:llama (qwen2.5-coder:3b)
-- **Role:** Coding agent (code:llama), Ollama inference server
+- **Stack:** Ollama v0.15.5, qwen2.5-coder:3b
+- **Role:** Coding agent, mesh node (via ProxyJump from Mac)
 - **Prompt Color:** Yellow (boss@brutus-8gb)
 
-### Private_PC — Mac Mini M1 (Control Center)
-- **Device:** Mac Mini M1
-- **CPU:** Apple Silicon M1 (8-core)
-- **RAM:** 8 GB Unified Memory
-- **Storage:** 512 GB SSD local + 2 TB Google Cloud + 2 TB iCloud
-- **OS:** macOS
-- **Role:** Brain/terminal, SSH management, VS Code remote dev
+### Stratos-001 — plutos-32gb (Inference VPS - Stratos)
+- **Provider:** Stratos
+- **Location:** Germany
+- **IP:** 87.106.3.190
+- **Hostname:** plutos
+- **Stack:** Ollama v0.15.5, llama3.1:8b-instruct-q4_K_M
+- **Role:** Inference node (direct SSH from Mac)
+- **Notes:** Accessible directly; part of mesh via WireGuard
 
-### Servitro-001 (Security Bastion)
+### Servitro-001 — nexus-1gb (Security Bastion)
 - **Provider:** Servitro.com
 - **Location:** Frankfurt, Germany
 - **Cost:** $12/year ($1/month)
-- **CPU:** AMD EPYC 7443P, 1 vCore
-- **RAM:** 1 GB DDR4
-- **Storage:** 10 GB SSD
-- **Network:** 1 Gbps, 1TB traffic, IPv4 + IPv6/64
-- **Status:** Fresh purchase (pending hardening)
-- **Role:** WireGuard hub, reverse proxy, jump host, security perimeter
+- **IP:** (none public)
+- **Mesh IP:** 10.0.0.1
+- **OS:** Alpine Linux
+- **Stack:** OpenSSH server (port 22)
+- **Role:** WireGuard hub, mesh gateway, security perimeter
+- **Access:** Only via ProxyJump through clawd (10.0.0.1)
 
 ---
 **Total Capacity:** 24 vCPUs | 33 GB RAM | 1.2 TB Storage | ~$25-30/month
 
-**Planned Architecture:**
-- clawd-16gb: Heavy inference (14B models), OpenClaw, main APIs
-- brutus-8gb: Trading bots, VPN proxy, 7B models, isolated services
-- Future: WireGuard VPN between them, API gateway pattern
+**Architecture Summary:**
+- clawd: Public entry point, hosts OpenClaw gateway
+- brutus & nexus: Mesh-only (hidden behind clawd)
+- plutos: Public IP on Stratos, also in mesh
+- SSH ProxyJump configured on Mac for seamless access
+- Ollama inference distributed across clawd (mistral), brutus (qwen-coder), plutos (llama3.1)
 
 ## Notes
 
 **Created During:** OpenClaw Initialization Sequence  
-**Status:** Active development  
-**Last Updated:** 2026-02-08
-**Next Review:** After job situation stabilizes
+**Status:** Mesh operational, SSH keys deployed, config backup saved  
+**Last Updated:** 2026-02-19 (Mesh completion)
+**Next Review:** When adding new nodes or changing SSH keys
+
+## Tags
+
+mesh, ssh, proxyjump, wireguard, clawd, brutus, plutos, nexus, ollama, models, deployment, infrastructure, ssh-config, vps, gateway, jump-host

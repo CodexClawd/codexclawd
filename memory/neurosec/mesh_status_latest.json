@@ -1,49 +1,51 @@
 {
-  "timestamp": "2026-02-19T01:45:07Z",
-  "overall_status": "HEALTHY",
-  "nodes": {
+  "timestamp": "2026-02-20T01:45:00Z",
+  "mesh_nodes": {
     "10.0.0.1": {
-      "name": "Nexus/Hub",
-      "status": "ONLINE",
-      "latency_ms": 13,
-      "packet_loss_percent": 0,
-      "ollama_available": false,
-      "ollama_models": []
+      "name": "Nexus",
+      "role": "security_hub",
+      "ping_status": "responsive",
+      "latency_ms": [14.029, 19.655],
+      "packet_loss": 0
     },
     "10.0.0.2": {
-      "name": "Clawd/Gateway",
-      "status": "ONLINE",
-      "latency_ms": 0,
-      "packet_loss_percent": 0,
-      "ollama_available": true,
-      "ollama_models": [
-        "mistral:7b-instruct-v0.3-q4_K_M"
-      ]
+      "name": "Clawd",
+      "role": "inference",
+      "ping_status": "responsive",
+      "latency_ms": [0.039, 0.047],
+      "packet_loss": 0,
+      "ollama_api": {
+        "status": "available",
+        "http_code": 200,
+        "response_time_s": 0.000852
+      }
     },
     "10.0.0.3": {
-      "name": "Brutus/Coding",
-      "status": "ONLINE",
-      "latency_ms": 24,
-      "packet_loss_percent": 0,
-      "ollama_available": true,
-      "ollama_models": [
-        "qwen2.5-coder:3b"
-      ]
+      "name": "Brutus",
+      "role": "inference",
+      "ping_status": "responsive",
+      "latency_ms": [24.500, 24.505],
+      "packet_loss": 0,
+      "ollama_api": {
+        "status": "available",
+        "http_code": 200,
+        "response_time_s": 0.064450
+      }
     },
     "10.0.0.4": {
-      "name": "Plutos/Inference",
-      "status": "ONLINE",
-      "latency_ms": 12,
-      "packet_loss_percent": 0,
-      "ollama_available": true,
-      "ollama_models": [
-        "llama3.1:8b-instruct-q4_K_M",
-        "qwen3-coder:480b-cloud"
-      ]
+      "name": "Plutos",
+      "role": "inference",
+      "ping_status": "responsive",
+      "latency_ms": [12.655, 12.661],
+      "packet_loss": 0,
+      "ollama_api": {
+        "status": "available",
+        "http_code": 200,
+        "response_time_s": 0.025957
+      }
     }
   },
-  "online_count": 4,
-  "total_count": 4,
-  "ollama_enabled_count": 3,
-  "alerts": []
+  "critical_alerts": [],
+  "overall_health": "healthy",
+  "notes": "1:45 AM check (February 20th). All nodes 0% packet loss, all APIs responding. Nexus ping latency variable (14-20ms) but still functional. Brutus API at 64ms, still acceptable. System stable overnight."
 }
