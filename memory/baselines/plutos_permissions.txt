@@ -1,0 +1,15 @@
+drwx------ 3 boss boss 4096 Feb 10 09:55 /home/boss/.openclaw/agents
+drwxrwxr-x 2 boss boss 4096 Feb 10 09:59 /home/boss/.openclaw/canvas
+drwx------ 2 boss boss 4096 Feb 11 21:24 /home/boss/.openclaw/credentials
+drwxrwxr-x 2 boss boss 4096 Feb 16 00:32 /home/boss/.openclaw/cron
+drwxrwxr-x 2 boss boss 4096 Feb 16 00:32 /home/boss/.openclaw/devices
+drwxrwxr-x 2 boss boss 4096 Feb 10 09:59 /home/boss/.openclaw/identity
+-rw------- 1 boss boss  179 Feb 16 00:32 /home/boss/.openclaw/node.json
+-rw------- 1 boss boss 3617 Feb 10 12:52 /home/boss/.openclaw/openclaw.json
+-rw------- 1 boss boss 2409 Feb 10 12:21 /home/boss/.openclaw/openclaw.json.bak
+-rw------- 1 boss boss 2308 Feb 10 12:06 /home/boss/.openclaw/openclaw.json.bak.1
+-rw------- 1 boss boss 1802 Feb 10 09:59 /home/boss/.openclaw/openclaw.json.bak.2
+-rw------- 1 boss boss  736 Feb 10 09:57 /home/boss/.openclaw/openclaw.json.bak.3
+drwx------ 2 boss boss 4096 Feb 11 21:24 /home/boss/.openclaw/telegram
+-rw-rw-r-- 1 boss boss  118 Feb 16 00:32 /home/boss/.openclaw/update-check.json
+drwxrwxr-x 3 boss boss 4096 Feb 10 09:57 /home/boss/.openclaw/workspace

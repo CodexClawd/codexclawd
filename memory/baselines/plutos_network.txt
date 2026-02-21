@@ -1,0 +1,9 @@
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                    
+LISTEN 0      4096      127.0.0.54:53         0.0.0.0:*                                              
+LISTEN 0      4096   127.0.0.53%lo:53         0.0.0.0:*                                              
+LISTEN 0      4096         0.0.0.0:22         0.0.0.0:*                                              
+LISTEN 0      511        127.0.0.1:18789      0.0.0.0:*    users:(("openclaw-gatewa",pid=1031,fd=21))
+LISTEN 0      511        127.0.0.1:18792      0.0.0.0:*    users:(("openclaw-gatewa",pid=1031,fd=27))
+LISTEN 0      4096               *:11434            *:*                                              
+LISTEN 0      4096            [::]:22            [::]:*                                              
+LISTEN 0      511            [::1]:18789         [::]:*    users:(("openclaw-gatewa",pid=1031,fd=23))
