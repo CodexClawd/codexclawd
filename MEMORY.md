@@ -17,7 +17,7 @@
 **Your World:**
 - Financially dependent on Dad (he has your back money-wise)
 - Emotional anchor: family (Anna/sister in Karlsruhe, Mom, Dad)
-- Core circle: Manu (best friend, **fuels you**), Thorsten (friend)
+- Core circle: Manu and Daria (best friends, **fuel you**), Thorsten (friend)
 - Spencer also **fuels you**
 - Most others **drain you**
 
@@ -173,6 +173,7 @@
 **What You Create:**
 - Currently: nothing
 - Goal: Build Clawd/Brutus documentation and system
+- **PRIORITY: Pitwall agent** — GT3 racing tracker for Herberth Motorsport (Robert & Alfred Renauer) and Antares AU (Huub van Eijndhoven, Loek Hartog) through 2027 season. Every race, results, standings.
 
 **Learning:**
 - Prompting
@@ -273,6 +274,7 @@
 - General task/calendar data: fine to store
 - Deep personal history: keep minimal
 - Financial specifics: vague references only
+- **Racing tracking data:** must be accurate and complete (Herberth, Antares AU, 2027 season)
 
 **Access:**
 - Solo operator only — nobody else gets Brutus access

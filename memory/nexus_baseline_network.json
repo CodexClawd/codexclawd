@@ -1,2 +1,4 @@
-{"local":"0.0.0.0:22","state":"LISTEN","pid":"0.0.0.0:*"},
-{"local":"[::]:22","state":"LISTEN","pid":"[::]:*"}
+[
+{"state":"LISTEN","local":"0.0.0.0:22","pid":"0.0.0.0:*"},
+{"state":"LISTEN","local":"[::]:22","pid":"[::]:*"}
+]

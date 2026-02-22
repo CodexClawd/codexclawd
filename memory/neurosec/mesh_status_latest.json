@@ -1,50 +1,73 @@
 {
-  "timestamp": "2026-02-21T01:45:00Z",
-  "mesh_nodes": {
-    "10.0.0.1-Nexus": {
-      "ping_status": "reachable",
-      "ping_loss_percent": 0,
-      "rtt_avg_ms": 58.37,
-      "jitter_ms": 3.38,
-      "max_rtt_ms": 62.17
+  "timestamp": "2026-02-22T01:45:00Z",
+  "check_type": "sentinel_mesh_check",
+  "mesh_nodes": [
+    {
+      "ip": "10.0.0.1",
+      "hostname": "Nexus",
+      "role": "nexus",
+      "ping_status": "up",
+      "ping_rtt_avg_ms": 13.826,
+      "ollama_status": "n/a",
+      "ollama_models_count": 0,
+      "alert": false
     },
-    "10.0.0.2-Clawd": {
-      "ping_status": "reachable",
-      "ping_loss_percent": 0,
-      "rtt_avg_ms": 0.047,
-      "ollama_api": {
-        "status": "responsive",
-        "version": "0.15.5"
-      }
+    {
+      "ip": "10.0.0.2",
+      "hostname": "Clawd",
+      "role": "inference",
+      "ping_status": "up",
+      "ping_rtt_avg_ms": 0.041,
+      "ollama_status": "up",
+      "ollama_models_count": 1,
+      "ollama_models": ["mistral:7b-instruct-v0.3-q4_K_M"],
+      "alert": false
     },
-    "10.0.0.3-Brutus": {
-      "ping_status": "reachable",
-      "ping_loss_percent": 0,
-      "rtt_avg_ms": 62.44,
-      "jitter_ms": 1.58,
-      "max_rtt_ms": 63.59,
-      "ollama_api": {
-        "status": "responsive",
-        "version": "0.16.1"
-      }
+    {
+      "ip": "10.0.0.3",
+      "hostname": "Brutus",
+      "role": "inference",
+      "ping_status": "up",
+      "ping_rtt_avg_ms": 24.140,
+      "ollama_status": "up",
+      "ollama_models_count": 1,
+      "ollama_models": ["qwen2.5-coder:3b"],
+      "alert": false
     },
-    "10.0.0.4-Plutos": {
-      "ping_status": "reachable",
-      "ping_loss_percent": 0,
-      "rtt_avg_ms": 55.25,
-      "jitter_ms": 2.21,
-      "max_rtt_ms": 58.10,
-      "ollama_api": {
-        "status": "responsive",
-        "version": "0.16.1"
-      }
+    {
+      "ip": "10.0.0.4",
+      "hostname": "Plutos",
+      "role": "inference",
+      "ping_status": "up",
+      "ping_rtt_avg_ms": 12.632,
+      "ollama_status": "up",
+      "ollama_models_count": 1,
+      "ollama_models": ["llama3.1:8b-instruct-q4_K_M"],
+      "alert": false
     }
-  },
+  ],
   "summary": {
     "total_nodes": 4,
-    "reachable_nodes": 4,
-    "inference_nodes_ollama_ok": 3,
+    "nodes_up": 4,
+    "nodes_down": 0,
+    "inference_nodes_healthy": 3,
     "critical_failures": 0
   },
-  "notes": "NETWORK EVENT WORSENING: RTTs increased significantly from 01:30 levels. Current: Nexus 58.4ms, Brutus 62.4ms, Plutos 55.2ms. Clawd remains stable baseline (0.05ms). All APIs still responsive, 0% packet loss. Network congestion/routing issue appears to be escalating despite no service outages. Requires urgent investigation."
+  "notes": "COMPLETE RECOVERY FROM SECOND DEGRADATION EVENT: All nodes returned to optimal baseline. Nexus (13.8ms), Brutus (24.1ms), Plutos (12.6ms) all excellent. Clawd perfect. 0% packet loss. All inference services fully operational. No CRITICAL failures. Second degradation event fully resolved within 30 minutes (1:15 AM - 1:45 AM). Mesh health restored.",
+  "second_event_resolution": {
+    "event_start": "2026-02-22T01:15:00Z",
+    "event_end": "2026-02-22T01:45:00Z",
+    "duration_minutes": 30,
+    "peak_latencies": {
+      "nexus": 41.6,
+      "brutus": 51.4,
+      "plutos": 38.0
+    },
+    "recovery_status": "complete"
+  },
+  "extended_monitoring": {
+    "checks_completed": 49,
+    "duration_hours": 21.75,
+    "status": "fully_recovered_operational"
+  }
 }
