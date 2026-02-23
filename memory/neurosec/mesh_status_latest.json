@@ -1,73 +1,63 @@
 {
-  "timestamp": "2026-02-22T01:45:00Z",
-  "check_type": "sentinel_mesh_check",
-  "mesh_nodes": [
-    {
-      "ip": "10.0.0.1",
-      "hostname": "Nexus",
-      "role": "nexus",
-      "ping_status": "up",
-      "ping_rtt_avg_ms": 13.826,
-      "ollama_status": "n/a",
-      "ollama_models_count": 0,
-      "alert": false
-    },
-    {
-      "ip": "10.0.0.2",
-      "hostname": "Clawd",
-      "role": "inference",
-      "ping_status": "up",
-      "ping_rtt_avg_ms": 0.041,
-      "ollama_status": "up",
-      "ollama_models_count": 1,
-      "ollama_models": ["mistral:7b-instruct-v0.3-q4_K_M"],
-      "alert": false
-    },
-    {
-      "ip": "10.0.0.3",
-      "hostname": "Brutus",
-      "role": "inference",
-      "ping_status": "up",
-      "ping_rtt_avg_ms": 24.140,
-      "ollama_status": "up",
-      "ollama_models_count": 1,
-      "ollama_models": ["qwen2.5-coder:3b"],
-      "alert": false
-    },
-    {
-      "ip": "10.0.0.4",
-      "hostname": "Plutos",
-      "role": "inference",
-      "ping_status": "up",
-      "ping_rtt_avg_ms": 12.632,
-      "ollama_status": "up",
-      "ollama_models_count": 1,
-      "ollama_models": ["llama3.1:8b-instruct-q4_K_M"],
-      "alert": false
+  "timestamp": "2026-02-23T01:45:00Z",
+  "mesh_health": {
+    "overall_status": "OPERATIONAL",
+    "nodes": {
+      "10.0.0.1": {
+        "name": "Nexus",
+        "role": "security_hub",
+        "ping": {
+          "status": "reachable",
+          "latency_ms_avg": 13.97,
+          "packet_loss_percent": 0.0
+        },
+        "ollama_api": null
+      },
+      "10.0.0.2": {
+        "name": "Clawd",
+        "role": "inference_node",
+        "ping": {
+          "status": "reachable",
+          "latency_ms_avg": 0.036,
+          "packet_loss_percent": 0.0
+        },
+        "ollama_api": {
+          "status": "operational",
+          "model": "mistral:7b-instruct-v0.3-q4_K_M",
+          "size_bytes": 4372824384,
+          "last_modified": "2026-02-15T23:02:56.098081384Z"
+        }
+      },
+      "10.0.0.3": {
+        "name": "Brutus",
+        "role": "inference_node",
+        "ping": {
+          "status": "reachable",
+          "latency_ms_avg": 28.7,
+          "packet_loss_percent": 0.0
+        },
+        "ollama_api": {
+          "status": "operational",
+          "model": "qwen2.5-coder:3b",
+          "size_bytes": 1929912626,
+          "last_modified": "2026-02-13T08:22:27.897377464Z"
+        }
+      },
+      "10.0.0.4": {
+        "name": "Plutos",
+        "role": "inference_node",
+        "ping": {
+          "status": "reachable",
+          "latency_ms_avg": 12.57,
+          "packet_loss_percent": 0.0
+        },
+        "ollama_api": {
+          "status": "operational",
+          "model": "llama3.1:8b-instruct-q4_K_M",
+          "size_bytes": 4920753328,
+          "last_modified": "2026-02-16T00:41:20.594367192Z"
+        }
+      }
     }
-  ],
-  "summary": {
-    "total_nodes": 4,
-    "nodes_up": 4,
-    "nodes_down": 0,
-    "inference_nodes_healthy": 3,
-    "critical_failures": 0
-  },
-  "notes": "COMPLETE RECOVERY FROM SECOND DEGRADATION EVENT: All nodes returned to optimal baseline. Nexus (13.8ms), Brutus (24.1ms), Plutos (12.6ms) all excellent. Clawd perfect. 0% packet loss. All inference services fully operational. No CRITICAL failures. Second degradation event fully resolved within 30 minutes (1:15 AM - 1:45 AM). Mesh health restored.",
-  "second_event_resolution": {
-    "event_start": "2026-02-22T01:15:00Z",
-    "event_end": "2026-02-22T01:45:00Z",
-    "duration_minutes": 30,
-    "peak_latencies": {
-      "nexus": 41.6,
-      "brutus": 51.4,
-      "plutos": 38.0
-    },
-    "recovery_status": "complete"
-  },
-  "extended_monitoring": {
-    "checks_completed": 49,
-    "duration_hours": 21.75,
-    "status": "fully_recovered_operational"
   }
 }
