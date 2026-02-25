@@ -1,93 +1,20 @@
 {
-  "check_time": "2026-02-24T01:45:00Z",
-  "mesh_nodes": [
-    {
-      "ip": "10.0.0.1",
-      "name": "Nexus",
-      "role": "security_hub",
-      "ping": {
-        "status": "reachable",
-        "packet_loss": 0.0,
-        "avg_latency_ms": 16.13,
-        "samples": 3,
-        "notes": "Stable (14-20ms), maintaining recovery from 01:15 crisis"
-      },
-      "ollama_api": null
+  "timestamp": "2026-02-25T01:45:05Z",
+  "nodes": {
+    "nexus": {
+      "ping": "up"
     },
-    {
-      "ip": "10.0.0.2",
-      "name": "Clawd",
-      "role": "inference_node",
-      "ping": {
-        "status": "reachable",
-        "packet_loss": 0.0,
-        "avg_latency_ms": 0.04,
-        "samples": 3
-      },
-      "ollama_api": {
-        "status": "responsive",
-        "models": [
-          {
-            "name": "mistral:7b-instruct-v0.3-q4_K_M",
-            "size_bytes": 4372824384,
-            "modified_at": "2026-02-15T23:02:56.098081384Z"
-          }
-        ]
-      }
+    "clawd": {
+      "ping": "up",
+      "ollama": "up"
     },
-    {
-      "ip": "10.0.0.3",
-      "name": "Brutus",
-      "role": "inference_node",
-      "ping": {
-        "status": "reachable",
-        "packet_loss": 0.0,
-        "avg_latency_ms": 26.68,
-        "samples": 3,
-        "notes": "Stable baseline (24-31ms), fully recovered from 01:15 crisis"
-      },
-      "ollama_api": {
-        "status": "responsive",
-        "models": [
-          {
-            "name": "qwen2.5-coder:3b",
-            "size_bytes": 1929912626,
-            "modified_at": "2026-02-13T22:22:27.897377464Z"
-          }
-        ]
-      }
+    "brutus": {
+      "ping": "up",
+      "ollama": "up"
     },
-    {
-      "ip": "10.0.0.4",
-      "name": "Plutos",
-      "role": "inference_node",
-      "ping": {
-        "status": "reachable",
-        "packet_loss": 0.0,
-        "avg_latency_ms": 12.51,
-        "samples": 3
-      },
-      "ollama_api": {
-        "status": "responsive",
-        "models": [
-          {
-            "name": "llama3.1:8b-instruct-q4_K_M",
-            "size_bytes": 4920753328,
-            "modified_at": "2026-02-16T00:41:20.594367464Z"
-          }
-        ]
-      }
+    "plutos": {
+      "ping": "up",
+      "ollama": "up"
     }
-  },
-  "summary": {
-    "total_nodes": 4,
-    "reachable_nodes": 4,
-    "unreachable_nodes": 0,
-    "inference_nodes_total": 3,
-    "inference_nodes_ollama_healthy": 3,
-    "operational_nodes": 3,
-    "overall_health": "HEALTHY",
-    "notes": "Post-crisis stability maintained 15 minutes after 01:15-01:30 recovery. No third spike detected yet (expected ~02:15 if pattern continues). All latencies within baseline. Monitoring continues."
-  },
-  "alerts": []
+  }
 }
