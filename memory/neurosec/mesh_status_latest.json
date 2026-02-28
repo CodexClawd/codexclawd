@@ -1,20 +1,42 @@
 {
-  "timestamp": "2026-02-25T01:45:05Z",
+  "timestamp": "2026-02-28T01:45:00Z",
+  "check_type": "sentinel-mesh-check",
   "nodes": {
-    "nexus": {
-      "ping": "up"
+    "10.0.0.1": {
+      "status": "UP",
+      "latency_ms": 73.488,
+      "role": "security_hub",
+      "ollama_api": "SKIPPED"
     },
-    "clawd": {
-      "ping": "up",
-      "ollama": "up"
+    "10.0.0.2": {
+      "status": "UP",
+      "latency_ms": 0.042,
+      "role": "inference",
+      "ollama_api": "RESPONDING",
+      "models_count": 1,
+      "models": ["mistral:7b-instruct-v0.3-q4_K_M"]
     },
-    "brutus": {
-      "ping": "up",
-      "ollama": "up"
+    "10.0.0.3": {
+      "status": "UP",
+      "latency_ms": 85.411,
+      "role": "inference",
+      "ollama_api": "RESPONDING",
+      "models_count": 1,
+      "models": ["qwen2.5-coder:3b"]
     },
-    "plutos": {
-      "ping": "up",
-      "ollama": "up"
+    "10.0.0.4": {
+      "status": "UP",
+      "latency_ms": 38.422,
+      "role": "inference",
+      "ollama_api": "RESPONDING",
+      "models_count": 1,
+      "models": ["llama3.1:8b-instruct-q4_K_M"]
     }
+  },
+  "summary": {
+    "total_nodes": 4,
+    "up_nodes": 4,
+    "ollama_responding": 3,
+    "critical_failures": 0
   }
 }
