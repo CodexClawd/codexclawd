@@ -1,37 +1,20 @@
-[
-  {
-    "timestamp": "2026-03-02T01:45:11Z",
-    "node": "Nexus",
-    "ip": "10.0.0.1",
-    "ping_status": "up",
-    "ollama_api": "skipped",
-    "type": "hub"
-  },
-  {
-    "timestamp": "2026-03-02T01:45:11Z",
-    "node": "Clawd",
-    "ip": "10.0.0.2",
-    "ping_status": "up",
-    "ollama_api": "healthy",
-    "type": "inference"
-  },
-  {
-    "timestamp": "2026-03-02T01:45:11Z",
-    "node": "Brutus",
-    "ip": "10.0.0.3",
-    "ping_status": "up",
-    "ollama_api": "healthy",
-    "type": "inference"
-  },
-  {
-    "timestamp": "2026-03-02T01:45:11Z",
-    "node": "Plutos",
-    "ip": "10.0.0.4",
-    "ping_status": "up",
-    "ollama_api": "healthy",
-    "type": "inference"
+{
+  "timestamp": "2026-03-03T01:45:12Z",
+  "nodes": {
+    "nexus": {
+      "ping": "down"
+    },
+    "clawd": {
+      "ping": "up",
+      "ollama": "up"
+    },
+    "brutus": {
+      "ping": "down",
+      "ollama": "down"
+    },
+    "plutos": {
+      "ping": "up",
+      "ollama": "up"
+    }
   }
-]
-
-// CRITICAL ALERTS //
-// NO CRITICAL ALERTS //
+}

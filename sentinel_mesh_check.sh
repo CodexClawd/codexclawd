@@ -80,12 +80,19 @@ for node in nexus clawd brutus plutos; do
     ping_status=$(jq -r ".nodes[\"${node}\"].ping // \"unknown\"" "${OUTPUT_FILE}")
     if [[ "${ping_status}" == "down" ]]; then
         CRITICAL=true
+        # Get the IP suffix for this node
+        case "${node}" in
+            nexus) NODE_IP="10.0.0.1" ;;
+            clawd) NODE_IP="10.0.0.2" ;;
+            brutus) NODE_IP="10.0.0.3" ;;
+            plutos) NODE_IP="10.0.0.4" ;;
+        esac
         ALERT_FILE="${ALERTS_DIR}/CRITICAL-MESH-${TIMESTAMP}-${node}.md"
         cat > "${ALERT_FILE}" <<EOF
 [CRITICAL] Mesh Node Offline: ${node}
 IMPACT: Inference and security functions disrupted; potential isolation from mesh
-EVIDENCE: Ping failed to 10.0.0.${NODE_SUFFIX}
-LOCATION: Node ${node} (10.0.0.${NODE_SUFFIX})
+EVIDENCE: Ping failed to ${NODE_IP}
+LOCATION: Node ${node} (${NODE_IP})
 RECOMMENDATION: Immediate network diagnostics and node restart
 CERTAINTY: High
 EOF
@@ -98,12 +105,18 @@ for node in clawd brutus plutos; do
     ollama_status=$(jq -r ".nodes[\"${node}\"].ollama // \"unknown\"" "${OUTPUT_FILE}")
     if [[ "${ollama_status}" == "down" ]]; then
         CRITICAL=true
+        # Get the IP suffix for this node
+        case "${node}" in
+            clawd) NODE_IP="10.0.0.2" ;;
+            brutus) NODE_IP="10.0.0.3" ;;
+            plutos) NODE_IP="10.0.0.4" ;;
+        esac
         ALERT_FILE="${ALERTS_DIR}/CRITICAL-OLLAMA-${TIMESTAMP}-${node}.md"
         cat > "${ALERT_FILE}" <<EOF
 [CRITICAL] Ollama API Failure: ${node}
 IMPACT: Inference capacity lost; AI processing halted
-EVIDENCE: Ollama API unreachable on 10.0.0.${NODE_SUFFIX}:11434
-LOCATION: Node ${node} (10.0.0.${NODE_SUFFIX})
+EVIDENCE: Ollama API unreachable on ${NODE_IP}:11434
+LOCATION: Node ${node} (${NODE_IP})
 RECOMMENDATION: Restart ollama service; check disk/memory
 CERTAINTY: High
 EOF
