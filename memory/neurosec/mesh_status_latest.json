@@ -1,20 +1,49 @@
 {
-  "timestamp": "2026-03-03T01:45:12Z",
-  "nodes": {
-    "nexus": {
-      "ping": "down"
+  "timestamp": "2026-03-04T01:45:08Z",
+  "nodes": [
+    {
+      "name": "Nexus",
+      "ip": "10.0.0.1",
+      "ping": {
+        "status": "up",
+        "latency_ms": 14.079
+      },
+      "ollama": {
+        "status": "skipped"
+      }
     },
-    "clawd": {
-      "ping": "up",
-      "ollama": "up"
+    {
+      "name": "Clawd",
+      "ip": "10.0.0.2",
+      "ping": {
+        "status": "up",
+        "latency_ms": 0.036
+      },
+      "ollama": {
+        "status": "up"
+      }
     },
-    "brutus": {
-      "ping": "down",
-      "ollama": "down"
+    {
+      "name": "Brutus",
+      "ip": "10.0.0.3",
+      "ping": {
+        "status": "up",
+        "latency_ms": 24.719
+      },
+      "ollama": {
+        "status": "up"
+      }
     },
-    "plutos": {
-      "ping": "up",
-      "ollama": "up"
+    {
+      "name": "Plutos",
+      "ip": "10.0.0.4",
+      "ping": {
+        "status": "up",
+        "latency_ms": 12.458
+      },
+      "ollama": {
+        "status": "up"
+      }
     }
-  }
+  ]
 }
