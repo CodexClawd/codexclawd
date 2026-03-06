@@ -1,76 +1,53 @@
 {
-  "timestamp": "2026-03-05T01:45:32Z",
-  "check_type": "sentinel_mesh_check",
-  "overall_status": "HEALTHY",
-  "nodes": [
-    {
-      "name": "Nexus",
+  "timestamp": "2026-03-06T01:45:00Z",
+  "check_type": "sentinel-mesh-check",
+  "nodes": {
+    "nexus": {
       "ip": "10.0.0.1",
       "role": "security_hub",
-      "ping": {
-        "status": "reachable",
-        "packet_loss_percent": 0,
-        "avg_rtt_ms": 13.983
-      },
-      "ollama_api": {
-        "checked": false,
-        "reason": "skipped - security hub, not an inference node"
-      }
+      "ping_status": "up",
+      "latency_ms": 14.05,
+      "packet_loss_percent": 0.0
     },
-    {
-      "name": "Clawd",
+    "clawd": {
       "ip": "10.0.0.2",
-      "role": "inference_node",
-      "ping": {
-        "status": "reachable",
-        "packet_loss_percent": 0,
-        "avg_rtt_ms": 0.043
-      },
+      "role": "inference",
+      "ping_status": "up",
+      "latency_ms": 0.0305,
+      "packet_loss_percent": 0.0,
       "ollama_api": {
-        "status": "responds",
-        "endpoint": "http://10.0.0.2:11434/api/tags",
-        "response_time_ms": null
+        "status": "up",
+        "response": "Ollama is running"
       }
     },
-    {
-      "name": "Brutus",
+    "brutus": {
       "ip": "10.0.0.3",
-      "role": "inference_node",
-      "ping": {
-        "status": "reachable",
-        "packet_loss_percent": 0,
-        "avg_rtt_ms": 24.393
-      },
+      "role": "inference",
+      "ping_status": "up",
+      "latency_ms": 30.05,
+      "packet_loss_percent": 0.0,
       "ollama_api": {
-        "status": "responds",
-        "endpoint": "http://10.0.0.3:11434/api/tags",
-        "response_time_ms": null
+        "status": "up",
+        "response": "Ollama is running"
       }
     },
-    {
-      "name": "Plutos",
+    "plutos": {
       "ip": "10.0.0.4",
-      "role": "inference_node",
-      "ping": {
-        "status": "reachable",
-        "packet_loss_percent": 0,
-        "avg_rtt_ms": 12.656
-      },
+      "role": "inference",
+      "ping_status": "up",
+      "latency_ms": 12.7,
+      "packet_loss_percent": 0.0,
       "ollama_api": {
-        "status": "responds",
-        "endpoint": "http://10.0.0.4:11434/api/tags",
-        "response_time_ms": null
+        "status": "up",
+        "response": "Ollama is running"
       }
     }
-  ],
-  "alerts": [],
+  },
   "summary": {
     "total_nodes": 4,
-    "ping_reachable": 4,
-    "ping_failed": 0,
-    "ollama_checked": 3,
-    "ollama_responding": 3,
-    "ollama_failed": 0,
+    "nodes_up": 4,
+    "nodes_down": 0,
+    "inference_nodes_ok": 3,
     "critical_failures": 0
   }
 }
