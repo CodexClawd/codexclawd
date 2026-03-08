@@ -1,37 +1,85 @@
 {
-  "timestamp": "2026-03-07T01:45:00Z",
-  "mesh_nodes": {
-    "10.0.0.1": {
-      "name": "Nexus",
-      "role": "security_hub",
-      "ping": "ok"
+  "timestamp": "2026-03-07T12:45:00Z",
+  "mesh_status": "HEALTHY",
+  "nodes": {
+    "nexus": {
+      "ip": "10.0.0.1",
+      "type": "security_hub",
+      "ping": {
+        "status": "UP",
+        "rtt_ms": [16.2, 13.9],
+        "packet_loss": 0.0
+      }
     },
-    "10.0.0.2": {
-      "name": "Clawd",
-      "role": "inference",
-      "ping": "ok",
-      "ollama_api": "ok"
+    "clawd": {
+      "ip": "10.0.0.2",
+      "type": "inference_node",
+      "ping": {
+        "status": "UP",
+        "rtt_ms": [0.029, 0.043],
+        "packet_loss": 0.0
+      },
+      "ollama": {
+        "status": "UP",
+        "api_port": 11434,
+        "models": [
+          {
+            "name": "mistral:7b-instruct-v0.3-q4_K_M",
+            "parameter_size": "7.2B",
+            "quantization": "Q4_K_M",
+            "modified_at": "2026-02-15T23:02:56.098081384Z"
+          }
+        ]
+      }
     },
-    "10.0.0.3": {
-      "name": "Brutus",
-      "role": "inference",
-      "ping": "ok",
-      "ollama_api": "ok"
+    "brutus": {
+      "ip": "10.0.0.3",
+      "type": "inference_node",
+      "ping": {
+        "status": "UP",
+        "rtt_ms": [37.5, 33.9],
+        "packet_loss": 0.0
+      },
+      "ollama": {
+        "status": "UP",
+        "api_port": 11434,
+        "models": [
+          {
+            "name": "qwen2.5-coder:3b",
+            "parameter_size": "3.1B",
+            "quantization": "Q4_K_M",
+            "modified_at": "2026-02-13T08:22:27.897377464Z"
+          }
+        ]
+      }
     },
-    "10.0.0.4": {
-      "name": "Plutos",
-      "role": "inference",
-      "ping": "ok",
-      "ollama_api": "ok"
+    "plutos": {
+      "ip": "10.0.0.4",
+      "type": "inference_node",
+      "ping": {
+        "status": "UP",
+        "rtt_ms": [12.7, 12.7],
+        "packet_loss": 0.0
+      },
+      "ollama": {
+        "status": "UP",
+        "api_port": 11434,
+        "models": [
+          {
+            "name": "llama3.1:8b-instruct-q4_K_M",
+            "parameter_size": "8.0B",
+            "quantization": "Q4_K_M",
+            "modified_at": "2026-02-16T00:41:20.594367192Z"
+          }
+        ]
+      }
     }
   },
   "summary": {
     "total_nodes": 4,
-    "ping_ok": 4,
-    "ping_fail": 0,
-    "ollama_nodes": 3,
-    "ollama_ok": 3,
-    "ollama_fail": 0,
+    "nodes_up": 4,
+    "inference_nodes_checked": 3,
+    "inference_nodes_healthy": 3,
     "critical_failures": 0
   }
 }
